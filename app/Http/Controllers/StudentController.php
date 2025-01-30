@@ -4,16 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct(Student $student){
+        $this->student = $student;
+    }
+    
+    
     public function index()
     {
+        $students = $this->student->all();
+        // dd($students->toArray());
         return view('student', [
             'title' => 'Training IT',
+            'students' => $students->toArray()
         ]);
     }
 
@@ -30,7 +39,28 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $rules = $this->student->validationRules();
+        $messages = $this->student->validationMessages();
+        $requestFillable = $request->only($this->student->getFillable());
+
+        // $validator = Validator::make($requestFillable, $rules, $messages);
+        // if ($validator->fails()) {
+        //     return $validator->errors()->first();
+        // }
+        // $this->student->create($requestFillable);
+        // return 'success';
+
+        $validator = Validator::make($requestFillable, $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()->first()]);
+        }
+
+        $this->student->create($requestFillable);
+        return response()->json(['success' => true, 'message' => 'Data berhasil ditambahkan']);
+
+
+
     }
 
     /**

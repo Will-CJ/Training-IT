@@ -20,4 +20,32 @@ class Student extends Model
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * Validation rules for the model.
+     *
+     * @return array
+     */
+    public function validationRules()
+    {
+        return [
+            'name' => 'required|string',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+        ];
+    }
+
+    /**
+     * Validation messages for the model.
+     *
+     * @return array
+     */
+    public function validationMessages()
+    {
+        return [
+            'name.required' => 'Name is required!',
+            'address.required' => 'Address is required!',
+            'phone.required' => 'Phone Number is required!',
+        ];
+    }
 }
