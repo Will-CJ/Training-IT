@@ -39,6 +39,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        //kalau panggil dd pasti error (dummy dum?)
         // dd($request->all());
         $rules = $this->student->validationRules();
         $messages = $this->student->validationMessages();
@@ -47,6 +48,7 @@ class StudentController extends Controller
         // $validator = Validator::make($requestFillable, $rules, $messages);
         // if ($validator->fails()) {
         //     return $validator->errors()->first();
+        //     // ambil error pertama aja
         // }
         // $this->student->create($requestFillable);
         // return 'success';
@@ -92,6 +94,6 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
     }
 }

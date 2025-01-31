@@ -34,6 +34,7 @@ class Student extends Model
             'phone' => 'required|string',
         ];
     }
+    // required|tipe data = string
 
     /**
      * Validation messages for the model.
@@ -47,5 +48,6 @@ class Student extends Model
             'address.required' => 'Address is required!',
             'phone.required' => 'Phone Number is required!',
         ];
+        // message nya
     }
 }

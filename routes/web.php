@@ -20,5 +20,5 @@ Route::get('/', function () {
 
 Route::get('/student', [StudentController::class, 'index'])->name('student.index');
 Route::post('/student', [StudentController::class, 'store'])->name('student.store');
-
+Route::get('/student/{student}', [StudentController::class, 'destroy'])->name('student.delete');
 
