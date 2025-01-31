@@ -4,7 +4,7 @@
 @section('content')
     <div class="flex flex-col w-3/4 mx-auto">
         <div class="text-center mb-8">
-            <h2 class="text-7xl text-black font-bold uppercase mb-4">Training laravel</h2>
+            <h2 class="text-7xl text-black font-bold uppercase mb-4">{{ $title }}</h2>
             <h3 class="text-3xl text-black font-bold uppercase italic mb-5">Simple crud</h3>
         </div>
     </div>
@@ -38,7 +38,8 @@
                                     <td class="whitespace-nowrap px-6 py-4 text-center">{{ $p['address'] }}</td>
                                     <td class="whitespace-nowrap px-6 py-4 text-center">{{ $p['phone'] }}</td>
                                     <td class="whitespace-nowrap text-center">
-                                        <button
+                                        <a
+                                        href="{{ route('student.delete',$p['id']) }}"
                                         type="button"
                                         class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
                                             <svg class="w-3.5 h-3.5 fill-[#ff5252]" viewBox="0 0 448 512"
@@ -48,7 +49,7 @@
                                                     d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z">
                                                 </path>
                                             </svg>
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
