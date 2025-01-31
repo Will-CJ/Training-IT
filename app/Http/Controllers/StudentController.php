@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
+    protected $student;
     /**
      * Display a listing of the resource.
      */
@@ -90,8 +91,10 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-        //
+      $student=$this->student->where('id',$id)->first();
+      $student->delete();
+      return redirect()->back()->with('success','Deleted Success');
     }
 }
