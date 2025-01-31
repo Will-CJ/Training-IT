@@ -44,6 +44,7 @@ class Student extends Model
     {
         return [
             'name.required' => 'Name is required!',
+            'name.string' => 'Name type must be string',
             'address.required' => 'Address is required!',
             'phone.required' => 'Phone Number is required!',
         ];

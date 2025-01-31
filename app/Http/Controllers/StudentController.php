@@ -19,7 +19,10 @@ class StudentController extends Controller
     public function index()
     {
         $students = $this->student->all();
-        // dd($students->toArray());
+        foreach($students as $student){
+            $student['linkDelete'] = route('student.destroy', ['student' => $student->id]);
+        }
+        //dd($students->toArray());
         return view('student', [
             'title' => 'Training IT',
             'students' => $students->toArray()
@@ -39,7 +42,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        //dd($request->all());
         $rules = $this->student->validationRules();
         $messages = $this->student->validationMessages();
         $requestFillable = $request->only($this->student->getFillable());
@@ -92,6 +95,11 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        try {
+            $student->delete();
+            return response()->json(['success' => true, 'message' => 'Data berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal menghapus data. '.$e->getMessage()]);
+        }
     }
 }

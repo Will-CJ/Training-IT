@@ -38,7 +38,7 @@
                                     <td class="whitespace-nowrap px-6 py-4 text-center">{{ $p['address'] }}</td>
                                     <td class="whitespace-nowrap px-6 py-4 text-center">{{ $p['phone'] }}</td>
                                     <td class="whitespace-nowrap text-center">
-                                        <button
+                                        <button onclick="deleteData('{{$p['linkDelete']}}')"
                                         type="button"
                                         class="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-primary-3 transition duration-150 ease-in-out hover:bg-primary-accent-300 hover:shadow-primary-2 focus:bg-primary-accent-300 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-primary-600 active:shadow-primary-2 motion-reduce:transition-none dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong">
                                             <svg class="w-3.5 h-3.5 fill-[#ff5252]" viewBox="0 0 448 512"
@@ -164,5 +164,65 @@
                 }
             })
         })
+    </script>
+    <script>
+        function deleteData(link){
+            Swal.fire({
+                title: "Delete",
+                text: 'Are you sure to delete this?',
+                icon: "warning",
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: link,
+                        success: async function(response) {
+                            if (response.success == true) {
+                                await Swal.fire({
+                                    title: "Success!",
+                                    text: response.message,
+                                    icon: "success",
+                                    confirmButtonColor: "#3085d6",
+                                    confirmButtonText: "OK"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload();
+                                    }
+                                });
+                            } else {
+                                await Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: response.message,
+                                    confirmButtonColor: "#3085d6",
+                                });
+                            }
+                        },
+                        error: async function(xhr, textStatus, errorThrown) {
+                            await Swal.fire({
+                                title: 'Oops!',
+                                text: 'Something went wrong: ' + textStatus + '-' +
+                                    errorThrown,
+                                icon: 'error',
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: "#3085d6",
+                            });
+                        }
+                    })
+                }else {
+                    // User canceled the submission
+                    Swal.fire({
+                        title: "Cancelled!",
+                        text: "Your data was not deleted.",
+                        icon: "info",
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "OK"
+                    });
+                }
+            })
+        }
     </script>
 @endsection
